@@ -5,15 +5,16 @@
     <script src="addons/p5.sound.min.js"></script>
   </head>
   <body>
-<textarea rows="20" cols="70">
+<textarea id=Code rows="20" cols="70">
 </textarea>
 <button onclick="myFunction()">Run!</button>
     <script>
 function setup() {createCanvas(710, 400);}
 function myFunction() {
     clear();
-    var code = document.getElementById("myTextarea").value;
+    var code = document.getElementById("Code").value;
     console.log(code);//log it!
+    eval(code);
 }
     </script>
   </body>
