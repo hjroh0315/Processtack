@@ -1,4 +1,6 @@
-String code = "";
+import java.io.*;
+
+String program = "";
 String[]input;
 
 boolean fileArg = false;
@@ -14,12 +16,12 @@ void setup(){
 			programFile = arg;
 			fileArg = false;
 			continue;
-		}else if (inputArg) {
+		} else if (inputArg) {
 			inputFile = arg;
 			inputArg = false;
 			continue;
 		}
-		
+
 		switch (arg) {
 			case "-f":
 				fileArg = true;
@@ -35,13 +37,19 @@ void setup(){
 				printHelp();
 		}
 	}
-	
+
 	if (!programFile.equals("")) {
-		code = String.join("\n", loadStrings(programFile));
+		program = String.join("\n", loadStrings(programFile));
+	} else {
+		println("Error: no program file passed");
+		printHelp();
 	}
-	
+
 	if (!inputFile.equals("")) {
 		input = loadStrings(inputFile);
+	} else {
+		println("Error: no program file passed");
+		printHelp();
 	}
 }
 
@@ -54,3 +62,8 @@ void printHelp() {
 	println("\t\t-i <input>    gives <input> (must be a file) as an input to the program");
 	exit();
 }
+/*
+void FileNotFound(String filename) {
+	println("File not found: " + filename);
+	exit();
+}*/
