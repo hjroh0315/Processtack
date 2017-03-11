@@ -52,6 +52,13 @@ void setup(){
 	}
 }
 
+void draw() {
+	Interpreter interpreter = new Interpreter(program, input);
+	interpreter.run();
+	// Don't want to run the Interpreter forever, just once
+	noLoop();
+}
+
 void printHelp() {
 	println();
 	println("Usage: processing-java --sketch=`pwd` --run [arguments]");
