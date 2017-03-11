@@ -48,8 +48,7 @@ void setup(){
 	if (!inputFile.equals("")) {
 		input = loadStrings(inputFile);
 	} else {
-		println("Error: no program file passed");
-		printHelp();
+		input = new String[]{""};
 	}
 }
 
@@ -60,7 +59,7 @@ void printHelp() {
 	println("\t\t-h            displays this help menu");
 	println("\t\t-f <filename> runs <filename> as a Processtack program");
 	println("\t\t-i <input>    gives <input> (must be a file) as an input to the program");
-	exit();
+	System.exit(0);
 }
 /*
 void FileNotFound(String filename) {
