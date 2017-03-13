@@ -23,9 +23,9 @@ class Interpreter {
 					b = pop();
 
 					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						add(parseFloat(a.toString()) + parseFloat(b.toString()));
+						push(parseFloat(a.toString()) + parseFloat(b.toString()));
 					} else {
-						add(a.toString() + b.toString());
+						push(a.toString() + b.toString());
 					}
 					break;
 				case "-":
@@ -33,7 +33,7 @@ class Interpreter {
 					b = pop();
 
 					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						add(parseFloat(a.toString()) - parseFloat(b.toString()));
+						push(parseFloat(a.toString()) - parseFloat(b.toString()));
 					} else {
 						//add(a.toString() + b.toString());
 					}
@@ -43,7 +43,7 @@ class Interpreter {
 					b = pop();
 
 					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						add(parseFloat(a.toString()) * parseFloat(b.toString()));
+						push(parseFloat(a.toString()) * parseFloat(b.toString()));
 					} else {
 						//add(a.toString() + b.toString());
 					}
@@ -53,13 +53,37 @@ class Interpreter {
 					b = pop();
 
 					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						add(parseFloat(a.toString()) / parseFloat(b.toString()));
+						push(parseFloat(a.toString()) / parseFloat(b.toString()));
 					} else {
 						//add(a.toString() + b.toString());
 					}
 					break;
+				case "d":
+					//duplicate
+					a = pop();
+					push(a);
+					push(a);
+					break;
+				case "s":
+					//swap
+					a = pop();
+					b = pop();
+					push(a);
+					push(b);
+					break;
+				case "g":
+					//get
+					a = pop();
+					Object element = get((int) parseFloat(a.toString()));
+					remove((int) parseFloat(a.toString()));
+					push(element);
+					break;
+				case "r":
+					//remove top element
+					a = pop();
+					break;
 				default:
-					add(_token);
+					push(_token);
 			}
 		}
 		background(0);
@@ -72,7 +96,7 @@ class Interpreter {
 
 		Parser inputParser = new Parser(input);
 		for (Object inputToken: inputParser.parse()) {
-			add(inputToken);
+			push(inputToken);
 		}
 	}
 
@@ -86,7 +110,15 @@ class Interpreter {
 		return lastElement;
 	}
 
-	void add(Object object) {
+	void push(Object object) {
 		stack.add(object);
+	}
+
+	Object get(int i) {
+		return stack.get(i);
+	}
+
+	void remove(int i) {
+		stack.remove(i);
 	}
 }

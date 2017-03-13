@@ -41,7 +41,7 @@ class Parser {
 					builder += onChar;
 				}
 				if (buildMode == 'n') {
-					if (match(onChar+"", "[+*/-]") != null) {
+					if (match(onChar+"", "[lrgsd+*/-]") != null) {
 						parsed.add(onChar + "");
 					}
 				}
