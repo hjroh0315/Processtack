@@ -20,7 +20,7 @@ class Parser {
 					builder = "";
 				} if (buildMode == 'd') {
 					buildMode = 's';
-					parsed.add(Integer.parseInt(builder));
+					parsed.add(parseFloat(builder));
 					builder = "";
 				}
 			} else if (match(onChar + "", "[\\d.]") != null) {
@@ -35,18 +35,23 @@ class Parser {
 			} else {
 				if (buildMode == 'd') {
 					buildMode = 'n';
-					parsed.add(Integer.parseInt(builder));
+					parsed.add(parseFloat(builder));
 					builder = "";
 				} else if (buildMode == 's') {
 					builder += onChar;
+				}
+				if (buildMode == 'n') {
+					if (match(onChar+"", "[+*/-]") != null) {
+						parsed.add(onChar + "");
+					}
 				}
 			}
 			//Debug
 			//print((onChar+"") + (buildMode+"") + " ");
 		}
 		if (buildMode == 'd') {
-			parsed.add(Integer.parseInt(builder));
-		} else {
+			parsed.add(parseFloat(builder));
+		} else if (buildMode == 's') {
 			parsed.add(builder);
 		}
 		return parsed;

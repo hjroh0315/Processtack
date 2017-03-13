@@ -12,8 +12,24 @@ class Interpreter {
 
 	void run() {
 		parse();
-		for (Object token: parsed) {
-			stack.add(token.toString());
+		//println(parsed);
+		for (Object _token: parsed) {
+			String token = _token.toString();
+			Object a,b;
+			//print(_token);
+			if (token.equals("+")) {
+				//println(typeOf(stack.get(stack.size()-2)));
+				a = pop();
+				b = pop();
+
+				if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+					stack.add(parseFloat(a.toString()) + parseFloat(b.toString()));
+				} else {
+					stack.add(a.toString() + b.toString());
+				}
+			} else {
+				stack.add(_token);
+			}
 		}
 		background(0);
 		print(stack);
@@ -25,7 +41,17 @@ class Interpreter {
 
 		Parser inputParser = new Parser(input);
 		for (Object inputToken: inputParser.parse()) {
-			stack.add(inputToken.toString());
+			stack.add(inputToken);
 		}
+	}
+
+	String typeOf(Object object) {
+		return object.getClass().getName().replace("java.lang.","");
+	}
+
+	Object pop() {
+		Object lastElement = stack.get(stack.size()-1);
+		stack.remove(stack.get(stack.size()-1));
+		return lastElement;
 	}
 }
