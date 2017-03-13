@@ -17,18 +17,49 @@ class Interpreter {
 			String token = _token.toString();
 			Object a,b;
 			//print(_token);
-			if (token.equals("+")) {
-				//println(typeOf(stack.get(stack.size()-2)));
-				a = pop();
-				b = pop();
+			switch (token) {
+				case "+":
+					a = pop();
+					b = pop();
 
-				if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-					stack.add(parseFloat(a.toString()) + parseFloat(b.toString()));
-				} else {
-					stack.add(a.toString() + b.toString());
-				}
-			} else {
-				stack.add(_token);
+					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+						add(parseFloat(a.toString()) + parseFloat(b.toString()));
+					} else {
+						add(a.toString() + b.toString());
+					}
+					break;
+				case "-":
+					a = pop();
+					b = pop();
+
+					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+						add(parseFloat(a.toString()) - parseFloat(b.toString()));
+					} else {
+						//add(a.toString() + b.toString());
+					}
+					break;
+				case "*":
+					a = pop();
+					b = pop();
+
+					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+						add(parseFloat(a.toString()) * parseFloat(b.toString()));
+					} else {
+						//add(a.toString() + b.toString());
+					}
+					break;
+				case "/":
+					a = pop();
+					b = pop();
+
+					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+						add(parseFloat(a.toString()) / parseFloat(b.toString()));
+					} else {
+						//add(a.toString() + b.toString());
+					}
+					break;
+				default:
+					add(_token);
 			}
 		}
 		background(0);
@@ -41,7 +72,7 @@ class Interpreter {
 
 		Parser inputParser = new Parser(input);
 		for (Object inputToken: inputParser.parse()) {
-			stack.add(inputToken);
+			add(inputToken);
 		}
 	}
 
@@ -53,5 +84,9 @@ class Interpreter {
 		Object lastElement = stack.get(stack.size()-1);
 		stack.remove(stack.get(stack.size()-1));
 		return lastElement;
+	}
+
+	void add(Object object) {
+		stack.add(object);
 	}
 }
