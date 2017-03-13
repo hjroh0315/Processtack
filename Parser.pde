@@ -18,8 +18,24 @@ class Parser {
 					buildMode = 'n';
 					parsed.add(builder);
 					builder = "";
-				} if (buildMode == 'd') {
+				} else if (buildMode == 'd') {
 					buildMode = 's';
+					parsed.add(parseFloat(builder));
+					builder = "";
+				} else if (buildMode == 'c') {
+					parsed.add(onChar);
+					buildMode = 'n';
+				}
+			} else if (onChar == '\'') {
+				if (buildMode == 'c') {
+					parsed.add(onChar);
+					buildMode = 'n';
+				} else if (buildMode == 'n') {
+					buildMode = 'c';
+				} else if (buildMode == 's') {
+					builder += onChar;
+				} else if (buildMode == 'd') {
+					buildMode = 'c';
 					parsed.add(parseFloat(builder));
 					builder = "";
 				}
@@ -31,6 +47,9 @@ class Parser {
 					builder += onChar;
 				} else if (buildMode == 's') {
 					builder += onChar;
+				} else if (buildMode == 'c') {
+					parsed.add(onChar);
+					buildMode = 'n';
 				}
 			} else {
 				if (buildMode == 'd') {
@@ -42,12 +61,17 @@ class Parser {
 				}
 				if (buildMode == 'n') {
 					if (match(onChar+"", "[lrgsd+*/-]") != null) {
-						parsed.add(onChar + "");
+						Operator op = new Operator(onChar + "");
+						parsed.add(op);
 					}
+				}
+				if (buildMode == 'c') {
+					parsed.add(onChar);
+					buildMode = 'n';
 				}
 			}
 			//Debug
-			//print((onChar+"") + (buildMode+"") + " ");
+			//print((onChar+"") + (buildMode+"") + builder+" ");
 		}
 		if (buildMode == 'd') {
 			parsed.add(parseFloat(builder));

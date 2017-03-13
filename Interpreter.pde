@@ -16,74 +16,76 @@ class Interpreter {
 		for (Object _token: parsed) {
 			String token = _token.toString();
 			Object a,b;
-			//print(_token);
-			switch (token) {
-				case "+":
-					a = pop();
-					b = pop();
+			//print(typeOf(_token));
+			if (typeOf(_token).equals("Operator")) {
+				switch (((Operator)_token).getValue()) {
+					case "+":
+						a = pop();
+						b = pop();
 
-					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						push(parseFloat(a.toString()) + parseFloat(b.toString()));
-					} else {
-						push(a.toString() + b.toString());
-					}
-					break;
-				case "-":
-					a = pop();
-					b = pop();
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(parseFloat(a.toString()) + parseFloat(b.toString()));
+						} else {
+							push(a.toString() + b.toString());
+						}
+						break;
+					case "-":
+						a = pop();
+						b = pop();
 
-					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						push(parseFloat(a.toString()) - parseFloat(b.toString()));
-					} else {
-						//add(a.toString() + b.toString());
-					}
-					break;
-				case "*":
-					a = pop();
-					b = pop();
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(parseFloat(a.toString()) - parseFloat(b.toString()));
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "*":
+						a = pop();
+						b = pop();
 
-					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						push(parseFloat(a.toString()) * parseFloat(b.toString()));
-					} else {
-						//add(a.toString() + b.toString());
-					}
-					break;
-				case "/":
-					a = pop();
-					b = pop();
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(parseFloat(a.toString()) * parseFloat(b.toString()));
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "/":
+						a = pop();
+						b = pop();
 
-					if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-						push(parseFloat(a.toString()) / parseFloat(b.toString()));
-					} else {
-						//add(a.toString() + b.toString());
-					}
-					break;
-				case "d":
-					//duplicate
-					a = pop();
-					push(a);
-					push(a);
-					break;
-				case "s":
-					//swap
-					a = pop();
-					b = pop();
-					push(a);
-					push(b);
-					break;
-				case "g":
-					//get
-					a = pop();
-					Object element = get((int) parseFloat(a.toString()));
-					remove((int) parseFloat(a.toString()));
-					push(element);
-					break;
-				case "r":
-					//remove top element
-					a = pop();
-					break;
-				default:
-					push(_token);
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(parseFloat(a.toString()) / parseFloat(b.toString()));
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "d":
+						//duplicate
+						a = pop();
+						push(a);
+						push(a);
+						break;
+					case "s":
+						//swap
+						a = pop();
+						b = pop();
+						push(a);
+						push(b);
+						break;
+					case "g":
+						//get
+						a = pop();
+						Object element = get((int) parseFloat(a.toString()));
+						remove((int) parseFloat(a.toString()));
+						push(element);
+						break;
+					case "r":
+						//remove top element
+						a = pop();
+						break;
+				}
+			} else {
+				push(_token);
 			}
 		}
 		background(0);
@@ -101,7 +103,7 @@ class Interpreter {
 	}
 
 	String typeOf(Object object) {
-		return object.getClass().getName().replace("java.lang.","");
+		return object.getClass().getName().replaceAll("java.lang.|Processtack\\$","");
 	}
 
 	Object pop() {
