@@ -42,7 +42,7 @@ class Parser {
 				}
 			}
 			//Debug
-			print((onChar+"") + (buildMode+"") + " ");
+			//print((onChar+"") + (buildMode+"") + " ");
 		}
 		if (buildMode == 'd') {
 			parsed.add(Integer.parseInt(builder));

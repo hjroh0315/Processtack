@@ -1,7 +1,7 @@
 import java.io.*;
 
 String program = "";
-String[]input;
+String input = "";
 
 boolean fileArg = false;
 boolean inputArg = false;
@@ -46,9 +46,9 @@ void setup(){
 	}
 
 	if (!inputFile.equals("")) {
-		input = loadStrings(inputFile);
+		input = String.join("\n", loadStrings(inputFile));
 	} else {
-		input = new String[]{""};
+		input = "";
 	}
 }
 
