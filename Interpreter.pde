@@ -15,7 +15,7 @@ class Interpreter {
 		//println(parsed);
 		for (Object _token: parsed) {
 			String token = _token.toString();
-			Object a,b;
+			Object a,b,w,h,x,y;
 			//print(typeOf(_token));
 			if (typeOf(_token).equals("Operator")) {
 				switch (((Operator)_token).getValue()) {
@@ -83,12 +83,28 @@ class Interpreter {
 						//remove top element
 						a = pop();
 						break;
+					case "E":
+						//ellipse
+						h = pop();
+						w = pop();
+						y = pop();
+						x = pop();
+						ellipse(toFloat(x), toFloat(y), toFloat(w), toFloat(h));
+						break;
+					case "R":
+						//rectangle
+						h = pop();
+						w = pop();
+						y = pop();
+						x = pop();
+						rect(toFloat(x), toFloat(y), toFloat(w), toFloat(h));
+						break;
 				}
 			} else {
 				push(_token);
 			}
 		}
-		background(0);
+		//background(0);
 		print(stack);
 	}
 
@@ -122,5 +138,9 @@ class Interpreter {
 
 	void remove(int i) {
 		stack.remove(i);
+	}
+
+	float toFloat(Object i) {
+		return parseFloat(i.toString());
 	}
 }

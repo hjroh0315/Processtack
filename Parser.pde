@@ -60,7 +60,7 @@ class Parser {
 					builder += onChar;
 				}
 				if (buildMode == 'n') {
-					if (match(onChar+"", "[lrgsd+*/-]") != null) {
+					if (match(onChar+"", "[lrgsdER+*/-]") != null) {
 						Operator op = new Operator(onChar + "");
 						parsed.add(op);
 					}
