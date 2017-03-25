@@ -15,6 +15,7 @@ class Interpreter {
 		//println(parsed);
 		for (Object _token: parsed) {
 			String token = _token.toString();
+			//println(stack);
 			Object a,b,w,h,x,y;
 			//print(typeOf(_token));
 			if (typeOf(_token).equals("Operator")) {
@@ -24,7 +25,7 @@ class Interpreter {
 						b = pop();
 
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-							push(parseFloat(a.toString()) + parseFloat(b.toString()));
+							push(toFloat(a) + toFloat(b));
 						} else {
 							push(a.toString() + b.toString());
 						}
@@ -34,7 +35,7 @@ class Interpreter {
 						b = pop();
 
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-							push(parseFloat(a.toString()) - parseFloat(b.toString()));
+							push(toFloat(a) - toFloat(b));
 						} else {
 							//add(a.toString() + b.toString());
 						}
@@ -44,7 +45,7 @@ class Interpreter {
 						b = pop();
 
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-							push(parseFloat(a.toString()) * parseFloat(b.toString()));
+							push(toFloat(a) * toFloat(b));
 						} else {
 							//add(a.toString() + b.toString());
 						}
@@ -54,7 +55,47 @@ class Interpreter {
 						b = pop();
 
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
-							push(parseFloat(a.toString()) / parseFloat(b.toString()));
+							push(toFloat(a) / toFloat(b));
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "<":
+						a = pop();
+						b = pop();
+
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(toFloat(a) < toFloat(b) ? 1.0 : 0.0);
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "=":
+						a = pop();
+						b = pop();
+
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(toFloat(a) == toFloat(b) ? 1.0 : 0.0);
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case ">":
+						a = pop();
+						b = pop();
+
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(toFloat(a) > toFloat(b) ? 1.0 : 0.0);
+						} else {
+							//add(a.toString() + b.toString());
+						}
+						break;
+					case "%":
+						a = pop();
+						b = pop();
+
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(toFloat(a) % toFloat(b));
 						} else {
 							//add(a.toString() + b.toString());
 						}
@@ -75,8 +116,8 @@ class Interpreter {
 					case "g":
 						//get
 						a = pop();
-						Object element = get((int) parseFloat(a.toString()));
-						remove((int) parseFloat(a.toString()));
+						Object element = get((int) toFloat(a));
+						remove((int) toFloat(a));
 						push(element);
 						break;
 					case "r":
@@ -124,7 +165,7 @@ class Interpreter {
 
 	Object pop() {
 		Object lastElement = stack.get(stack.size()-1);
-		stack.remove(stack.get(stack.size()-1));
+		stack.remove(stack.size()-1);
 		return lastElement;
 	}
 
