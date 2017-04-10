@@ -143,6 +143,31 @@ class Interpreter {
 						//remove top element
 						a = pop();
 						break;
+					case "c":
+						//clear stack
+						stack = new ArrayList();
+						break;
+					case "C":
+						//case int to char
+						a = pop();
+
+						if (typeOf(a).equals("Float")) {
+							push((char) round(toFloat(a)));
+						} else {
+							//push(a.toString() + b.toString());
+						}
+						break;
+					case "P":
+						//print
+						a = pop();
+						print(a.toString());
+						push(a);
+						break;
+					case "p":
+						//print
+						a = pop();
+						print(a.toString());
+						break;
 					case "E":
 						//ellipse
 						h = pop();

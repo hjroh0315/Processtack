@@ -60,7 +60,7 @@ class Parser {
 					builder += onChar;
 				}
 				if (buildMode == 'n') {
-					if (match(onChar+"", "[lrgsdER+*/<=>%!^-]") != null) {
+					if (match(onChar+"", "[lrgsdcCERPp+*/<=>%!^-]") != null) {
 						Operator op = new Operator(onChar + "");
 						parsed.add(op);
 					}
