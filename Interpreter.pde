@@ -37,7 +37,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) - toFloat(b));
 						} else {
-							//add(a.toString() + b.toString());
+							//push(a.toString() + b.toString());
 						}
 						break;
 					case "*":
@@ -47,7 +47,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) * toFloat(b));
 						} else {
-							//add(a.toString() + b.toString());
+							//push(a.toString() + b.toString());
 						}
 						break;
 					case "/":
@@ -57,7 +57,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) / toFloat(b));
 						} else {
-							//add(a.toString() + b.toString());
+							//push(a.toString() + b.toString());
 						}
 						break;
 					case "<":
@@ -67,7 +67,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) < toFloat(b) ? 1.0 : 0.0);
 						} else {
-							//add(a.toString() + b.toString());
+							push(a.toString().compareTo(b.toString()) < 0 ? 1.0 : 0.0);
 						}
 						break;
 					case "=":
@@ -77,7 +77,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) == toFloat(b) ? 1.0 : 0.0);
 						} else {
-							//add(a.toString() + b.toString());
+							push(a.toString().equals(b.toString()) ? 1.0 : 0.0);
 						}
 						break;
 					case ">":
@@ -87,7 +87,7 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) > toFloat(b) ? 1.0 : 0.0);
 						} else {
-							//add(a.toString() + b.toString());
+							push(a.toString().compareTo(b.toString()) > 0 ? 1.0 : 0.0);
 						}
 						break;
 					case "%":
@@ -97,7 +97,26 @@ class Interpreter {
 						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
 							push(toFloat(a) % toFloat(b));
 						} else {
-							//add(a.toString() + b.toString());
+							//push(a.toString() + b.toString());
+						}
+						break;
+					case "^":
+						a = pop();
+						b = pop();
+
+						if (typeOf(a).equals("Float") && typeOf(b).equals("Float")) {
+							push(pow( toFloat(a), toFloat(b) ));
+						} else {
+							//push(a.toString() + b.toString());
+						}
+						break;
+					case "!":
+						a = pop();
+
+						if (typeOf(a).equals("Float")) {
+							push(toFloat(a) == 0.0 ? 1.0 : 0.0);
+						} else {
+							//push(a.toString() + b.toString());
 						}
 						break;
 					case "d":
